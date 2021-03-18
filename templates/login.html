@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Logowanie
+{% endblock %}
+
+{% block content %}
+    {% if error != '' %}
+        <div class="wrapper">
+            <div id="formContent">
+                <h1> {{ error }} </h1>
+            </div>
+        </div>
+        </div>
+
+    {% endif %}
+    </div>
+    <div class="wrapper">
+        <div id="formContent">
+            <h2 class="active"> Logowanie </h2>
+            <a href="{% url 'signup' %}"><h2 class="inactive underlineHover"> Rejestracja </h2></a>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Zaloguj">
+            </form>
+            {#            <div id="formFooter">#}
+            {#                <a class="underlineHover" href="#">Kontakt z administratorem</a>#}
+            {#            </div>#}
+        </div>
+    </div>
+{% endblock %}

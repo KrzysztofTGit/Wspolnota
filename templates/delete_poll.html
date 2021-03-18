@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Uswwanie głosowania
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <p><strong>Temat: </strong>{{ poll.name }}</p>
+            <p><strong>Opis: </strong>{{ poll.description }}</p>
+            <p><strong>Pytanie: </strong>{{ poll.question }}</p>
+            <p>Czy chcesz usunąć głosowanie?</p>
+            <form method="post">
+                {% csrf_token %}
+                <p><input type="submit" name="submit" value="Tak">
+                    <input type="submit" name="submit" value="Nie"></p>
+            </form>
+        </div>
+    </div>
+{% endblock %}

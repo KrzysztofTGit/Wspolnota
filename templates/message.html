@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Wiadomości
+{% endblock %}
+
+{% block content %}
+    {% if user.is_superuser %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <a href="{% url 'add_message' %}"><h1 class="active" style="margin-right: 30px">Dodaj wiadomość</h1></a>
+                <a href="{% url 'sent_messages' %}"><h1 class="active" style="margin-left: 30px">Wysłane wiadomości</h1></a>
+            </div>
+        </div>
+    {% endif %}
+    {% for message in messages %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <p><b>Autor: </b>{{ message.author.user.first_name }} {{ message.author.user.last_name }}</p>
+                <p><strong>Temat: </strong>{{ message.topic }}</p>
+                <p><strong>Data dodania: </strong>{{ message.date|date:'d.m.Y' }}</p>
+                <p style="padding:10px 50px;">{{ message.content }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Strona główna
+{% endblock %}
+
+{% block content %}
+    {% if error %}<h3>{{ error }}</h3>{% endif %}
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <h1>Witaj na stronie głównej!</h1>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <h2>Najnowsza wiadomość</h2>
+            <p><b>Autor: </b>{{ message.author.user.first_name }} {{ message.author.user.last_name }}</p>
+            <p><strong>Temat: </strong>{{ message.topic }}</p>
+            <p><strong>Data dodania: </strong>{{ message.date|date:'d.m.Y' }}</p>
+            <p style="padding:0 50px;">{{ message.content }}</p>
+            <a href="{% url 'messages' %}" style="text-align: left; padding:0 0 20px 0;">
+                <h2 class="active">Wszystkie wiadomości</h2>
+            </a>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <h2>Najnowsze ogłoszenie</h2>
+            <p><b>Autor: </b>{{ notice.author.user.first_name }} {{ notice.author.user.last_name }}</p>
+            <p><strong>Temat: </strong>{{ notice.topic }}</p>
+            <p><strong>Data dodania: </strong>{{ notice.date|date:'d.m.Y'  }}</p>
+            <p style="padding:10px 50px;">{{ notice.content }}</p>
+            <p><strong>Kontakt: </strong><a href = "mailto: {{ notice.author.user.email }}">{{ notice.author.user.email }}</a></p>
+            <a href="{% url 'notices' %}" style="text-align: left; padding:0 0 20px 0;">
+                <h2 class="active">Wszystkie ogłoszenia</h2>
+            </a>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <h2>Najnowsze głosowanie</h2>
+            <p><strong>Temat: </strong>{{ poll.name }}</p>
+            <p style="padding:10px 50px;">{{ poll.description }}</p>
+            <a href="{% url 'polls_list' %}" style="text-align: left; padding:0 0 20px 0;">
+                <h2 class="active">Wszystkie głosowania</h2>
+            </a>
+        </div>
+    </div>
+{% endblock %}

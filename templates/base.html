@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+<div class="topnav" id="myTopnav">
+    <a href="{% url 'index' %}">Tablica</a>
+    <a href="{% url 'messages' %}">Wiadomości</a>
+    <a href="{% url 'notices' %}">Ogłoszenia</a>
+    <a href="{% url 'polls_list' %}">Głosowania</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'account' %}">Konto</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Wyloguj</a>
+    {% else %}
+        <a href="{% url 'login' %}">Logowanie / Rejestracja</a>
+    {% endif %}
+</div>
+
+{% block content %} {% endblock %}
+</body>
+
+</html>

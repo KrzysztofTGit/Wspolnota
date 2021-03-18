@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Głosowanie
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <p><b>Temat: </b>{{ poll.name }}</p>
+            <p><b>Opis: </b>{{ poll.description }}</p>
+            <p><b>Pytanie: </b>{{ poll.question }}</p>
+            <div id="progressbar">
+                <div style="width: {{ percentage_for }}%;">Za: {{ percentage_for }}%</div>
+            </div>
+            <p><b>Głosy za: </b>{{ poll.votes_for }}</p>
+            <p><b>Głosy przeciw: </b>{{ poll.votes_against }}</p>
+            <p><b>Głosy wstrzymujące: </b>{{ poll.votes_pass }}</p>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div id="formContent">
+            {% if already_voted == False %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Oddaj głos">
+                </form>
+            {% elif already_voted == True %}
+                <h1>Twój głos został już oddany!</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

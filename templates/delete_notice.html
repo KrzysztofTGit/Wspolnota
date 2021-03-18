@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Uswwanie ogłoszenia
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <p><b>Autor: </b>{{ notice.author.user.first_name }} {{ notice.author.user.last_name }}</p>
+            <p><strong>Temat: </strong>{{ notice.topic }}</p>
+            <p><strong>Data dodania: </strong>{{ notice.date|date:'d.m.Y' }}</p>
+            <p style="padding:10px 50px;">{{ notice.content }}</p>
+            <p><strong>Kontakt: </strong><a
+                    href="mailto: {{ notice.author.user.email }}">{{ notice.author.user.email }}</a></p>
+            <p>Czy chcesz usunąć ogłoszenie?</p>
+            <form method="post">
+                {% csrf_token %}
+                <p><input type="submit" name="submit" value="Tak">
+                    <input type="submit" name="submit" value="Nie"></p>
+            </form>
+        </div>
+    </div>
+{% endblock %}

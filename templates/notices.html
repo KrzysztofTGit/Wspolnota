@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Ogłoszenia
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <a href="{% url 'add_notice' %}"><h1 class="active">Dodaj ogłoszenie</h1></a>
+        </div>
+    </div>
+    {% for notice in notices %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <p><b>Autor: </b>{{ notice.author.user.first_name }} {{ notice.author.user.last_name }}</p>
+                <p><strong>Temat: </strong>{{ notice.topic }}</p>
+                <p><strong>Data dodania: </strong>{{ notice.date|date:'d.m.Y' }}</p>
+                <p style="padding:10px 50px;">{{ notice.content }}</p>
+                <p><strong>Kontakt: </strong><a href="mailto: {{ notice.author.user.email }}">{{ notice.author.user.email }}</a></p>
+                {% if notice.author.pk == user.pk  or user.is_superuser %}
+                    <a href="{% url 'delete_notice' notice.id %}"><h2 class="active">Usuń ogłoszenie</h2></a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

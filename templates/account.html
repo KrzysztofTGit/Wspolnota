@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Konto
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <div id="formContent" style="max-width: 1000px">
+            <h2>Twoje dane:</h2>
+            <table style="width:100%; padding: 20px">
+                <tr>
+                    <th>Login</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Email</th>
+                    <th>Budynek</th>
+                    <th>Mieszkanie</th>
+                </tr>
+                <tr>
+                    <td>{{ profile.user.username }}</td>
+                    <td>{{ profile.user.first_name }}</td>
+                    <td>{{ profile.user.last_name }}</td>
+                    <td>{{ profile.user.email }}</td>
+                    <td>{{ profile.appartment.building }}</td>
+                    <td>{{ profile.appartment.number }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% if user.is_superuser %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <h1>Jesteś superuserem!</h1>
+                <a href="/admin/"><h1 class="active">Panel admina</h1></a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

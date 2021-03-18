@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Dodawanie wiadomości
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Wyślij wiadomość">
+            </form>
+        </div>
+    </div>
+{% endblock %}

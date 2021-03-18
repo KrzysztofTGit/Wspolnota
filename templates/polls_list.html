@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Głosowania
+{% endblock %}
+
+{% block content %}
+    {% if user.is_superuser %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <a href="{% url 'add_poll' %}"><h1 class="active">Dodaj głosowanie</h1></a>
+            </div>
+        </div>
+    {% endif %}
+    {% for poll in polls %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <p><b>Temat: </b>{{ poll.name }}</p>
+                <p><b>Opis: </b>{{ poll.description }}</p>
+                <p><b>Pytanie: </b>{{ poll.question }}</p>
+                <p><b>Głosy za: </b>{{ poll.votes_for }}</p>
+                <p><b>Głosy przeciw: </b>{{ poll.votes_against }}</p>
+                <p><b>Głosy wstrzymujące: </b>{{ poll.votes_pass }}</p>
+                <p>
+                    <b>Twój głos: </b>
+                    {% for x in poll.vote_set.all %}
+                        {% if x.profile == profile %}
+                            {{ x.chosen_option }}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                <a href="{{ poll.id }}" style="text-align: left; padding:0 0 20px 0;"><h2 class="active">Przejdź do głosowania</h2></a>
+                {% if user.is_superuser %}
+                    <a href="{% url 'delete_poll' poll.id %}"><h2 class="active">Usuń głosowanie</h2></a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

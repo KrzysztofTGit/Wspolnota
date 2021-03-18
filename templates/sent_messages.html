@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Wysłane wiadomości
+{% endblock %}
+
+{% block content %}
+    {% if user.is_superuser %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <a href="{% url 'add_message' %}"><h1 class="active">Dodaj wiadomość</h1></a>
+            </div>
+        </div>
+    {% endif %}
+    {% for message in messages %}
+        <div class="wrapper">
+            <div id="formContent" style="max-width: 1000px">
+                <p><b>Autor: </b>{{ message.author.user.first_name }} {{ message.author.user.last_name }}</p>
+                <p><b>Odbiorca: </b>{{ message.recipient.user.first_name }} {{ message.recipient.user.last_name }}</p>
+                <p><strong>Temat: </strong>{{ message.topic }}</p>
+                <p><strong>Data dodania: </strong>{{ message.date|date:'d.m.Y' }}</p>
+                <p style="padding:10px 50px;">{{ message.content }}</p>
+                {% if user.is_superuser %}
+{#                    <a href="{% url 'edit_message' %}' %}"><h2 class="active">Edytuj wiadomość</h2></a>#}
+                    <a href="{% url 'delete_message' message.id %}"><h2 class="active">Usuń wiadomość</h2></a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
